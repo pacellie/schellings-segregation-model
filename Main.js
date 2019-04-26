@@ -13,8 +13,8 @@ function main() {
     neighborhoodRadius: 1,
     percentageA       : 0.33,
     percentageB       : 0.33,
-    lowerBoundA       : 0.70,
-    lowerBoundB       : 0.70,
+    lowerBoundA       : 0.50,
+    lowerBoundB       : 0.50,
     upperBoundA       : 1.00,
     upperBoundB       : 1.00,
   };

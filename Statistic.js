@@ -16,8 +16,8 @@ export function segregation(model) {
   const likeNeighbors = points.map(p => model.neighborhood(p).filter(n => model.element(p) === model.element(n)));
 
   return [
-    [sum(likeNeighborsA) * 100 / sum(allNeighborsA)],
-    [sum(likeNeighborsB) * 100 / sum(allNeighborsB)],
-    [sum(likeNeighbors) * 100 / sum(allNeighbors)],
+    [(2 * sum(likeNeighborsA) - sum(allNeighborsA)) * 100 / sum(allNeighborsA)],
+    [(2 * sum(likeNeighborsB) - sum(allNeighborsB)) * 100 / sum(allNeighborsB)],
+    [(2 * sum(likeNeighbors) - sum(allNeighbors)) * 100 / sum(allNeighbors)],
   ];
 }
