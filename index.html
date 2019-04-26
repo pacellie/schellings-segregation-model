@@ -8,17 +8,24 @@
   </head>
 
   <body>
+    <h3>Schellings Segregation Principle</h1>
+    <h4>The Checkerboard Model</h2>
+
     <div id="display">
       <div id="simulation">
-        <canvas id="canvasId" width="500" height="500"/>
+        <canvas id="simulationCanvas" width="500" height="500"/>
       </div>
-      <div id="charts"></div>
+      <div id="charts">
+        <div id="segregation"></div>
+        <div id="isolation"></div>
+        <div id="density"></div>
+      </div>
     </div>
 
     <div id="controls">
       <form name="generate-form">
-        <input type="range" id="generateInputId" value="10" min="1" max="100" oninput="generateOutputId.value = generateInputId.value">
-        <output id="generateOutputId">10</output>
+        <input type="range" id="generateInputId" value="30" min="1" max="60" oninput="generateOutputId.value = generateInputId.value">
+        <output id="generateOutputId">30</output>
         <input type="button" id="generateSubmitId" value="Generate">
       </form>
 

@@ -3,7 +3,7 @@ import { clear, render } from './Renderer';
 import { initChart, updateChart, clearChart } from './Plotter';
 
 function main() {
-  const ctx      = document.getElementById('canvasId').getContext('2d');
+  const ctx      = document.getElementById('simulationCanvas').getContext('2d');
   const generate = document.getElementById('generateSubmitId');
   const size     = document.getElementById('generateInputId');
   const simulate = document.getElementById('simulateButtonId');
@@ -31,7 +31,9 @@ function main() {
       clearInterval(handle);
       running = false;
     } else {
-      updateChart();
+      updateChart('segregation', Math.random());
+      updateChart('isolation', Math.random());
+      updateChart('density', Math.random());
     }
 
     render(ctx, model);
@@ -39,8 +41,12 @@ function main() {
 
   generate.onclick = (_) => {
     clear(ctx);
-    clearChart();
-    initChart();
+    clearChart('segregation');
+    clearChart('isolation');
+    clearChart('density');
+    initChart('segregation');
+    initChart('isolation');
+    initChart('density');
     model = new Model(Number(size.value), config);
     render(ctx, model);
   };
@@ -52,7 +58,7 @@ function main() {
       running = false;
     } else {
       simulate.value = 'Stop';
-      handle = setInterval(run, 50);
+      handle = setInterval(run, 0);
       running = true;
     }
   };

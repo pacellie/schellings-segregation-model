@@ -8,8 +8,6 @@ export class Model {
     this.iteration  = 0;
     this.config     = config;
     this.matrix     = [];
-    this.empty      = [];
-    this.discontent = [];
 
     for (let i = 0; i < size; i += 1) {
       const row = [];
@@ -25,28 +23,20 @@ export class Model {
       }
       this.matrix.push(row);
     }
-
-    this.updateEmptyAndDiscontent();
-  }
-
-  updateEmptyAndDiscontent() {
-    this.empty      = [];
-    this.discontent = [];
-
-    for (let i = 0; i < this.size; i += 1) {
-      for (let j = 0; j < this.size; j += 1) {
-        const point = { x: i, y: j };
-        if (this.element(point) === 'O') {
-          this.empty.push(point);
-        } else if (!this.content(point, this.element(point))) {
-          this.discontent.push(point);
-        }
-      }
-    }
   }
 
   element(point) {
     return this.matrix[point.x][point.y];
+  }
+
+  points() {
+    const ps = [];
+    for (let i = 0; i < this.size; i += 1) {
+      for (let j = 0; j < this.size; j += 1) {
+        ps.push({ x: i, y: j });
+      }
+    }
+    return ps;
   }
 
   neighborhood(point) {
@@ -88,25 +78,26 @@ export class Model {
   }
 
   simulate() {
-    if (this.discontent.length === 0 || this.empty.length === 0) {
+    const empty = this.points().filter(p => this.element(p) === 'O');
+    const discontent = this.points().filter(p => !this.content(p, this.element(p)));
+
+    if (discontent.length === 0 || empty.length === 0) {
       return false;
     }
 
-    const indexFrom = random(0, this.discontent.length - 1);
-    const from = this.discontent[indexFrom];
+    const indexFrom = random(0, discontent.length - 1);
+    const from = discontent[indexFrom];
     const elem = this.element(from);
 
-    let candidates = this.empty.filter(p => this.content(p, elem));
+    let candidates = empty.filter(p => this.content(p, elem));
     if (candidates.length === 0) {
-      candidates = this.empty;
+      candidates = empty;
     }
     const indexTo = random(0, candidates.length - 1);
     const to = candidates[indexTo];
 
     this.matrix[from.x][from.y] = 'O';
     this.matrix[to.x][to.y] = elem;
-
-    this.updateEmptyAndDiscontent();
     this.iteration += 1;
 
     return true;
