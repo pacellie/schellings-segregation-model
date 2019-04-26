@@ -1,19 +1,16 @@
 import * as Plotly from 'plotly.js';
 
-export function plot() {
-  const trace1 = {
-    x: [1, 2, 3, 4],
-    y: [10, 15, 13, 17],
-    type: 'scatter',
-  };
+export function initChart() {
+  Plotly.plot('charts', [{
+    y: [],
+    type: 'line',
+  }]);
+}
 
-  const trace2 = {
-    x: [1, 2, 3, 4],
-    y: [16, 5, 11, 9],
-    type: 'scatter',
-  };
+export function clearChart() {
+  Plotly.purge('charts');
+}
 
-  const data = [trace1, trace2];
-
-  Plotly.newPlot(document.getElementById('charts'), data);
+export function updateChart() {
+  Plotly.extendTraces('charts', { y: [[Math.random()]] }, [0]);
 }

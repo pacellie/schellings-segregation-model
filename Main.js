@@ -1,14 +1,12 @@
 import { Model } from './Model';
 import { clear, render } from './Renderer';
-import { plot } from './Plotter';
+import { initChart, updateChart, clearChart } from './Plotter';
 
 function main() {
   const ctx      = document.getElementById('canvasId').getContext('2d');
   const generate = document.getElementById('generateSubmitId');
   const size     = document.getElementById('generateInputId');
   const simulate = document.getElementById('simulateButtonId');
-
-  plot();
 
   const config = {
     neighborhoodRadius: 1,
@@ -26,12 +24,23 @@ function main() {
 
   const run = () => {
     clear(ctx);
-    model.simulate();
+
+    const stepped = model.simulate();
+    if (!stepped) {
+      simulate.value = 'Simulate';
+      clearInterval(handle);
+      running = false;
+    } else {
+      updateChart();
+    }
+
     render(ctx, model);
   };
 
   generate.onclick = (_) => {
     clear(ctx);
+    clearChart();
+    initChart();
     model = new Model(Number(size.value), config);
     render(ctx, model);
   };
@@ -43,7 +52,7 @@ function main() {
       running = false;
     } else {
       simulate.value = 'Stop';
-      handle = setInterval(run, 1);
+      handle = setInterval(run, 50);
       running = true;
     }
   };

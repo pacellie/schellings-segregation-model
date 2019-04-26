@@ -88,8 +88,8 @@ export class Model {
   }
 
   simulate() {
-    if (this.discontent.length === 0) {
-      return;
+    if (this.discontent.length === 0 || this.empty.length === 0) {
+      return false;
     }
 
     const indexFrom = random(0, this.discontent.length - 1);
@@ -109,6 +109,6 @@ export class Model {
     this.updateEmptyAndDiscontent();
     this.iteration += 1;
 
-    return;
+    return true;
   }
 }
