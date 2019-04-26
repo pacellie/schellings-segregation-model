@@ -1,6 +1,7 @@
 import { Model } from './Model';
 import { clear, render } from './Renderer';
 import { initChart, updateChart, clearChart } from './Plotter';
+import { segregation } from './Statistic';
 
 function main() {
   const ctx      = document.getElementById('simulationCanvas').getContext('2d');
@@ -12,8 +13,8 @@ function main() {
     neighborhoodRadius: 1,
     percentageA       : 0.33,
     percentageB       : 0.33,
-    lowerBoundA       : 0.50,
-    lowerBoundB       : 0.50,
+    lowerBoundA       : 0.70,
+    lowerBoundB       : 0.70,
     upperBoundA       : 1.00,
     upperBoundB       : 1.00,
   };
@@ -31,9 +32,9 @@ function main() {
       clearInterval(handle);
       running = false;
     } else {
-      updateChart('segregation', Math.random());
-      updateChart('isolation', Math.random());
-      updateChart('density', Math.random());
+      updateChart('segregation', segregation(model));
+      updateChart('isolation', [[Math.random()], [Math.random()], [Math.random()]]);
+      updateChart('density', [[Math.random()], [Math.random()], [Math.random()]]);
     }
 
     render(ctx, model);
@@ -44,9 +45,9 @@ function main() {
     clearChart('segregation');
     clearChart('isolation');
     clearChart('density');
-    initChart('segregation');
-    initChart('isolation');
-    initChart('density');
+    initChart('segregation', 'Segregation');
+    initChart('isolation', 'Isolation');
+    initChart('density', 'Density');
     model = new Model(Number(size.value), config);
     render(ctx, model);
   };
