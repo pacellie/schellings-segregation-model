@@ -3,8 +3,8 @@ import * as Plotly from 'plotly.js';
 export function initChart(div) {
   const layout = {
     autosize: false,
-    width: 500,
-    height: 500 / 3,
+    width: 550,
+    height: 550 / 3,
     margin: {
       l: 30,
       r: 30,
