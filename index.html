@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang=en>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Schellings Segregation Principle</title>
+    <link rel="stylesheet" href="index.css">
+  </head>
+
+  <body>
+    <div id="display">
+      <div id="simulation">
+        <canvas id="canvasId" width="500" height="500"/>
+      </div>
+      <div id="charts"></div>
+    </div>
+
+    <div id="controls">
+      <form name="generate-form">
+        <input type="range" id="generateInputId" value="10" min="1" max="100" oninput="generateOutputId.value = generateInputId.value">
+        <output id="generateOutputId">10</output>
+        <input type="button" id="generateSubmitId" value="Generate">
+      </form>
+
+      <form name="simulate-form">
+        <input type="button" id="simulateButtonId" value="Simulate">
+      </form>
+    </div>
+
+    <script src="bundle.js"></script>
+  </body>
+
+</html>

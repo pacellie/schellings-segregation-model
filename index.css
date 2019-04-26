@@ -1,0 +1,20 @@
+#display {
+  width: 80%;
+  height: 500px;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid red;
+}
+
+#simulation {
+  width: 50%;
+  height: 500px;
+  float: left;
+  border: 1px solid blue;
+}
+
+#charts {
+  margin-left: 50%;
+  height: 500px;
+  border: 1px solid green;
+}
