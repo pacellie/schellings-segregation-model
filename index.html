@@ -24,14 +24,18 @@
     <div id="controls">
       <div id="generate">
         <div>
-          <label for="generate-size">Board Size:</label>
+          <label class="label-big">Board Size:</label>
           <input type="text" id="generate-size" name="generate-size" value="30">
+
+          <label class="label-small">Squares(%):</label>
+          <input type="text" id="generate-mixture-squares" name="generate-mixture-squares" value="33">
         </div>
 
         <div>
-          <label for="generate-mixture-squares">Squares(%):</label>
-          <input type="text" id="generate-mixture-squares" name="generate-mixture-squares" value="33">
-          <label for="generate-mixture-circles">Circles(%):</label>
+          <label class="label-big">Neighborhood Radius:</label>
+          <input type="text" id="generate-neighborhood-radius" name="generate-neighborhood-radius" value="1">
+
+          <label class="label-small">Circles(%):</label>
           <input type="text" id="generate-mixture-circles" name="generate-mixture-circles" value="33">
         </div>
 
@@ -39,7 +43,19 @@
       </div>
 
       <div id="preferences">
+        <div>
+          <label class="label-big">Squares Preferences(%):</label>
+          <input type="text" id="preferences-squares-lower" name="preferences-squares-lower" value="50">
+          <input type="text" id="preferences-squares-upper" name="preferences-squares-upper" value="100">
+        </div>
 
+        <div>
+          <label class="label-big">Circles Preferences(%):</label>
+          <input type="text" id="preferences-circles-lower" name="preferences-circles-lower" value="50">
+          <input type="text" id="preferences-circles-upper" name="preferences-circles-upper" value="100">
+        </div>
+
+        <input type="button" id="preferences-button" value="Preferences">
       </div>
 
       <div id="simulate">

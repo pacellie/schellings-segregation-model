@@ -30,19 +30,19 @@ body {
 }
 
 #generate {
-  width: 33%;
+  width: 40%;
   height: 110px;
   float: left;
 }
 
 #preferences {
-  width: 33%;
+  width: 40%;
   height: 110px;
   float: left;
 }
 
 #simulate {
-  width: 33%;
+  width: 55px;
   height: 110px;
   float: left;
   text-align: center;
@@ -56,10 +56,17 @@ body {
 
 label {
   display: inline-block;
-  width: 100px;
   font-weight: bold;
   margin: 0px 5px;
   vertical-align: middle;
+}
+
+.label-small {
+  width: 100px;
+}
+
+.label-big {
+  width: 180px;
 }
 
 input[type=text] {
@@ -67,6 +74,7 @@ input[type=text] {
   width: 50px;
   height: 24px;
   margin: 2px 0px;
+  margin-right: 5px;
   font-weight: bold;
   color: black;
   border: 2px solid gainsboro;
