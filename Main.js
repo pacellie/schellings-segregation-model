@@ -1,7 +1,7 @@
 import { Model } from './Model';
 import { clear, render } from './Renderer';
 import { initChart, updateChart, clearChart } from './Plotter';
-import { segregation } from './Statistic';
+import { segregation, isolation, density } from './Statistic';
 
 function main() {
   const ctx      = document.getElementById('simulationCanvas').getContext('2d');
@@ -19,13 +19,16 @@ function main() {
     upperBoundB       : 1.00,
   };
 
-  let model = new Model(1, config);
+  let model = new Model(30, config);
+  render(ctx, model);
+  initChart('segregation', 'Segregation');
+  initChart('isolation', 'Isolation');
+  initChart('density', 'Density');
   let running = false;
   let handle = 0;
 
   const run = () => {
     clear(ctx);
-
     const stepped = model.simulate();
     if (!stepped) {
       simulate.value = 'Simulate';
@@ -33,10 +36,9 @@ function main() {
       running = false;
     } else {
       updateChart('segregation', segregation(model));
-      updateChart('isolation', [[Math.random()], [Math.random()], [Math.random()]]);
-      updateChart('density', [[Math.random()], [Math.random()], [Math.random()]]);
+      updateChart('isolation', isolation(model));
+      updateChart('density', density(model));
     }
-
     render(ctx, model);
   };
 
