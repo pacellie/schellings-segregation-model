@@ -8,12 +8,11 @@
   </head>
 
   <body>
-    <h3>Schellings Segregation Principle</h1>
-    <h4>The Checkerboard Model</h2>
+    <h2>The "Checkerbox" Model</h1>
 
     <div id="display">
       <div id="simulation">
-        <canvas id="simulationCanvas" width="500" height="500"/>
+        <canvas id="simulation-canvas" width="500" height="500"/>
       </div>
       <div id="charts">
         <div id="segregation"></div>
@@ -23,15 +22,29 @@
     </div>
 
     <div id="controls">
-      <form name="generate-form">
-        <input type="button" id="generateSubmitId" value="Generate">
-        <input type="range" id="generateInputId" value="30" min="1" max="60" oninput="generateOutputId.value = generateInputId.value">
-        <output id="generateOutputId">30</output>
-      </form>
+      <div id="generate">
+        <div>
+          <label for="generate-size">Board Size:</label>
+          <input type="text" id="generate-size" name="generate-size" value="30">
+        </div>
 
-      <form name="simulate-form">
-        <input type="button" id="simulateButtonId" value="Simulate">
-      </form>
+        <div>
+          <label for="generate-mixture-squares">Squares(%):</label>
+          <input type="text" id="generate-mixture-squares" name="generate-mixture-squares" value="33">
+          <label for="generate-mixture-circles">Circles(%):</label>
+          <input type="text" id="generate-mixture-circles" name="generate-mixture-circles" value="33">
+        </div>
+
+        <input type="button" id="generate-button" value="Generate">
+      </div>
+
+      <div id="preferences">
+
+      </div>
+
+      <div id="simulate">
+        <input type="button" id="simulate-button" value="Simulate">
+      </div>
     </div>
 
     <script src="bundle.js"></script>

@@ -4,10 +4,12 @@ import { initChart, updateChart, clearChart } from './Plotter';
 import { segregation, isolation, density } from './Statistic';
 
 function main() {
-  const ctx      = document.getElementById('simulationCanvas').getContext('2d');
-  const generate = document.getElementById('generateSubmitId');
-  const size     = document.getElementById('generateInputId');
-  const simulate = document.getElementById('simulateButtonId');
+  const ctx      = document.getElementById('simulation-canvas').getContext('2d');
+  const size     = document.getElementById('generate-size');
+  const squares  = document.getElementById('generate-mixture-squares');
+  const circles  = document.getElementById('generate-mixture-circles');
+  const generate = document.getElementById('generate-button');
+  const simulate = document.getElementById('simulate-button');
 
   const config = {
     neighborhoodRadius: 1,
@@ -44,12 +46,18 @@ function main() {
 
   generate.onclick = (_) => {
     clear(ctx);
+
     clearChart('segregation');
     clearChart('isolation');
     clearChart('density');
+
     initChart('segregation', 'Segregation');
     initChart('isolation', 'Isolation');
     initChart('density', 'Density');
+
+    config.percentageA = Number(squares.value) / 100;
+    config.percentageB = Number(circles.value) / 100;
+
     model = new Model(Number(size.value), config);
     render(ctx, model);
   };
