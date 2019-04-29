@@ -48,9 +48,11 @@ function main() {
       clearInterval(handle);
       running = false;
     } else {
-      updateChart('segregation', segregation(model));
-      updateChart('isolation', isolation(model));
-      updateChart('density', density(model));
+      if (model.iteration % 10 === 0) {
+        updateChart('segregation', segregation(model));
+        updateChart('isolation', isolation(model));
+        updateChart('density', density(model));
+      }
     }
 
     render(ctx, model);

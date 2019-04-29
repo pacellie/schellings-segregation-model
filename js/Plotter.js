@@ -43,6 +43,10 @@ export function initChart(div, title) {
       t: 30,
       pad: 5
     },
+    xaxis: {
+      showticklabels: false,
+      showgrid: false,
+    }
   };
 
   Plotly.plot(div, [traceA, traceB, traceC], layout, { displayModeBar: false });
