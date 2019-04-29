@@ -1,35 +1,34 @@
-function sum(points) {
+import { opposite } from './Model';
+
+function cnt(points) {
   return points.reduce((a, b) => a + b.length, 0);
 }
 
-export function segregation(model) {
-  const pointsA = model.points.filter(p => model.element(p) === 'A');
-  const allNeighborsA = pointsA.map(p => model.neighborhood(p).filter(n => model.element(n) !== 'O'));
-  const likeNeighborsA = pointsA.map(p => model.neighborhood(p).filter(n => model.element(n) === 'A'));
-
-  const pointsB = model.points.filter(p => model.element(p) === 'B');
-  const allNeighborsB = pointsB.map(p => model.neighborhood(p).filter(n => model.element(n) !== 'O'));
-  const likeNeighborsB = pointsB.map(p => model.neighborhood(p).filter(n => model.element(n) === 'B'));
-
-  const points = model.points.filter(p => model.element(p) !== 'O');
-  const allNeighbors = points.map(p => model.neighborhood(p).filter(n => model.element(n) !== 'O'));
-  const likeNeighbors = points.map(p => model.neighborhood(p).filter(n => model.element(p) === model.element(n)));
-
-  return [
-    [sum(likeNeighborsA) * 100 / sum(allNeighborsA)],
-    [sum(likeNeighborsB) * 100 / sum(allNeighborsB)],
-    [sum(likeNeighbors) * 100 / sum(allNeighbors)],
-  ];
+function points(model, type) {
+  return model.points.filter(p => model.element(p) === type);
 }
 
-function opposite(elem) {
-  if (elem === 'A') {
-    return 'B';
-  } else if (elem === 'B') {
-    return 'A';
-  } else {
-    return 'O';
-  }
+export function segregation(model) {
+  const pointsA = points(model, 'A');
+  const pointsB = points(model, 'B');
+
+  const neighborsA = pointsA.map(p => model.neighbors(p));
+  const neighborsB = pointsB.map(p => model.neighbors(p));
+
+  const likeNeighborsA = pointsA.map(p => model.likeNeighbors(p));
+  const likeNeighborsB = pointsB.map(p => model.likeNeighbors(p));
+
+  const cntNeighborsA = cnt(neighborsA);
+  const cntNeighborsB = cnt(neighborsB);
+
+  const cntLikeNeighborsA = cnt(likeNeighborsA);
+  const cntLikeNeighborsB = cnt(likeNeighborsB);
+
+  return [
+    [cntLikeNeighborsA * 100 / cntNeighborsA],
+    [cntLikeNeighborsB * 100 / cntNeighborsB],
+    [(cntLikeNeighborsA + cntLikeNeighborsB) * 100 / (cntNeighborsA + cntNeighborsB)],
+  ];
 }
 
 function isIsolated(model, point) {
@@ -37,38 +36,38 @@ function isIsolated(model, point) {
 }
 
 export function isolation(model) {
-  const pointsA = model.points.filter(p => model.element(p) === 'A');
-  const noUnlikeNeighborsA = pointsA.filter(p => isIsolated(model, p));
+  const pointsA = points(model, 'A');
+  const isolatedNeighborsA = pointsA.filter(p => isIsolated(model, p));
 
-  const pointsB = model.points.filter(p => model.element(p) === 'B');
-  const noUnlikeNeighborsB = pointsB.filter(p => isIsolated(model, p));
-
-  const points = model.points.filter(p => model.element(p) !== 'O');
-  const noUnlikeNeighbors = points.filter(p => isIsolated(model, p));
+  const pointsB = points(model, 'B');
+  const isolatedNeighborsB = pointsB.filter(p => isIsolated(model, p));
 
   return [
-    [noUnlikeNeighborsA.length * 100 / pointsA.length],
-    [noUnlikeNeighborsB.length * 100 / pointsB.length],
-    [noUnlikeNeighbors.length * 100 / points.length],
+    [isolatedNeighborsA.length * 100 / pointsA.length],
+    [isolatedNeighborsB.length * 100 / pointsB.length],
+    [(isolatedNeighborsA.length + isolatedNeighborsB.length) * 100 / (pointsA.length + pointsB.length)],
   ];
 }
 
 export function density(model) {
-  const pointsA = model.points.filter(p => model.element(p) === 'A');
-  const neighborsA = pointsA.map(p => model.neighborhood(p).filter(n => model.element(n) !== 'O'));
-  const allNeighborsA = pointsA.map(p => model.neighborhood(p));
+  const pointsA = points(model, 'A');
+  const pointsB = points(model, 'B');
 
-  const pointsB = model.points.filter(p => model.element(p) === 'B');
-  const neighborsB = pointsB.map(p => model.neighborhood(p).filter(n => model.element(n) !== 'O'));
-  const allNeighborsB = pointsB.map(p => model.neighborhood(p));
+  const neighborsA = pointsA.map(p => model.neighbors(p));
+  const neighborsB = pointsB.map(p => model.neighbors(p));
 
-  const points = model.points.filter(p => model.element(p) !== 'O');
-  const neighbors = points.map(p => model.neighborhood(p).filter(n => model.element(n) !== 'O'));
-  const allNeighbors = points.map(p => model.neighborhood(p));
+  const neighborhoodSizeA = pointsA.map(p => model.neighborhood(p));
+  const neighborhoodSizeB = pointsB.map(p => model.neighborhood(p));
+
+  const cntNeighborsA = cnt(neighborsA);
+  const cntNeighborsB = cnt(neighborsB);
+
+  const cntNeighborhoodSizeA = cnt(neighborhoodSizeA);
+  const cntNeighborhoodSizeB = cnt(neighborhoodSizeB);
 
   return [
-    [sum(neighborsA) * 100 / sum(allNeighborsA)],
-    [sum(neighborsB) * 100 / sum(allNeighborsB)],
-    [sum(neighbors) * 100 / sum(allNeighbors)],
+    [cntNeighborsA * 100 / cntNeighborhoodSizeA],
+    [cntNeighborsB * 100 / cntNeighborhoodSizeB],
+    [(cntNeighborsA + cntNeighborsB) * 100 / (cntNeighborhoodSizeA + cntNeighborhoodSizeB)],
   ];
 }

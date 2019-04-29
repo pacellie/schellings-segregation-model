@@ -47,12 +47,10 @@ function main() {
       simulate.value = 'Simulate';
       clearInterval(handle);
       running = false;
-    } else {
-      if (model.iteration % 10 === 0) {
-        updateChart('segregation', segregation(model));
-        updateChart('isolation', isolation(model));
-        updateChart('density', density(model));
-      }
+    } else if (model.iteration % 10 === 0) {
+      updateChart('segregation', segregation(model));
+      updateChart('isolation', isolation(model));
+      updateChart('density', density(model));
     }
 
     render(ctx, model);

@@ -2,6 +2,16 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+export function opposite(elem) {
+  if (elem === 'A') {
+    return 'B';
+  } else if (elem === 'B') {
+    return 'A';
+  } else {
+    return 'O';
+  }
+}
+
 export class Model {
   constructor(size, config) {
     this.size       = size;
@@ -47,6 +57,14 @@ export class Model {
     }
 
     return neighbors;
+  }
+
+  neighbors(point) {
+    return this.neighborhood(point).filter(n => this.element(n) !== 'O');
+  }
+
+  likeNeighbors(point) {
+    return this.neighborhood(point).filter(n => this.element(point) === this.element(n));
   }
 
   content(point, elem) {
