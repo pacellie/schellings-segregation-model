@@ -1,14 +1,13 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: "./Main.js",
+  entry: "./js/Main.js",
   output: {
-    path: __dirname,
+    path: __dirname + "/dist",
     filename: "bundle.js"
   },
   module: {
     rules: [
-      process.env.NODE_ENV === 'production' ? { test: /\.js$/, use: 'babel-loader' } : {},
       {
         test: /\.js$/,
         use: [
