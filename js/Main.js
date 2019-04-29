@@ -31,12 +31,13 @@ function main() {
   };
 
   let model = new Model(30, config);
+  let running = false;
+  let handle = 0;
+
   render(ctx, model);
   initChart('segregation', 'Segregation');
   initChart('isolation', 'Isolation');
   initChart('density', 'Density');
-  let running = false;
-  let handle = 0;
 
   const run = () => {
     clear(ctx);
@@ -71,6 +72,7 @@ function main() {
     config.percentageB = Number(circles.value) / 100;
 
     model = new Model(Number(size.value), config);
+
     render(ctx, model);
   };
 

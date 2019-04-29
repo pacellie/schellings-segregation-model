@@ -8,6 +8,7 @@ export class Model {
     this.iteration  = 0;
     this.config     = config;
     this.matrix     = [];
+    this.points     = [];
 
     for (let i = 0; i < size; i += 1) {
       const row = [];
@@ -20,6 +21,8 @@ export class Model {
         } else {
           row.push('O');
         }
+
+        this.points.push({ x: i, y: j});
       }
       this.matrix.push(row);
     }
@@ -27,16 +30,6 @@ export class Model {
 
   element(point) {
     return this.matrix[point.x][point.y];
-  }
-
-  points() {
-    const ps = [];
-    for (let i = 0; i < this.size; i += 1) {
-      for (let j = 0; j < this.size; j += 1) {
-        ps.push({ x: i, y: j });
-      }
-    }
-    return ps;
   }
 
   neighborhood(point) {
@@ -78,8 +71,8 @@ export class Model {
   }
 
   simulate() {
-    const empty = this.points().filter(p => this.element(p) === 'O');
-    const discontent = this.points().filter(p => !this.content(p, this.element(p)));
+    const empty = this.points.filter(p => this.element(p) === 'O');
+    const discontent = this.points.filter(p => !this.content(p, this.element(p)));
 
     if (discontent.length === 0 || empty.length === 0) {
       return false;
