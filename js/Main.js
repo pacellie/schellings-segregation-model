@@ -18,6 +18,7 @@ function main() {
   const circlesLower = document.getElementById('preferences-circles-lower');
   const circlesUpper = document.getElementById('preferences-circles-upper');
 
+  const checkbox = document.getElementById('discontent-checkbox');
   const simulate = document.getElementById('simulate-button');
 
   const config = {
@@ -30,11 +31,12 @@ function main() {
     upperBoundB       : Number(circlesUpper.value) / 100,
   };
 
-  let model = new Model(30, config);
-  let running = false;
-  let handle = 0;
+  let model          = new Model(30, config);
+  let running        = false;
+  let showDiscontent = false;
+  let handle         = 0;
 
-  render(ctx, model);
+  render(ctx, model, showDiscontent);
   initChart('segregation', 'Segregation');
   initChart('isolation', 'Isolation');
   initChart('density', 'Density');
@@ -53,7 +55,7 @@ function main() {
       updateChart('density', density(model));
     }
 
-    render(ctx, model);
+    render(ctx, model, showDiscontent);
   };
 
   generate.onclick = (_) => {
@@ -73,7 +75,7 @@ function main() {
 
     model = new Model(Number(size.value), config);
 
-    render(ctx, model);
+    render(ctx, model, showDiscontent);
   };
 
   preferences.onclick = (_) => {
@@ -84,8 +86,16 @@ function main() {
     config.upperBoundA = Number(squaresUpper.value) / 100;
     config.upperBoundB = Number(circlesUpper.value) / 100;
 
-    render(ctx, model);
+    render(ctx, model, showDiscontent);
   };
+
+  checkbox.onclick = (_) => {
+    clear(ctx);
+
+    showDiscontent = !showDiscontent;
+
+    render(ctx, model, showDiscontent);
+  }
 
   simulate.onclick = (_) => {
     if (running) {

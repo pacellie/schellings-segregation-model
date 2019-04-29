@@ -2,7 +2,7 @@ export function clear(ctx) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
 
-export function render(ctx, model) {
+export function render(ctx, model, showDiscontent) {
   const spacing = 1;
   const size = ctx.canvas.width;
   const elements = model.size;
@@ -17,7 +17,7 @@ export function render(ctx, model) {
 
       switch (model.element(point)) {
         case 'A':
-          if (model.content(point, 'A')) {
+          if (!showDiscontent || model.content(point, 'A')) {
             ctx.fillStyle = '#ffad3c';
             ctx.fillRect(x, y, s, s);
           } else {
@@ -25,7 +25,7 @@ export function render(ctx, model) {
           }
           break;
         case 'B':
-          if (model.content(point, 'B')) {
+          if (!showDiscontent || model.content(point, 'B')) {
             ctx.fillStyle = '#3c8ed2';
             ctx.beginPath();
             ctx.arc(x + s / 2, y + s / 2, s / 2, 0, 2 * Math.PI);

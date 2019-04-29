@@ -30,26 +30,25 @@ body {
 }
 
 #generate {
-  width: 40%;
+  width: 42%;
   height: 110px;
   float: left;
 }
 
 #preferences {
-  width: 40%;
+  width: 38%;
   height: 110px;
   float: left;
 }
 
 #simulate {
-  width: 55px;
+  width: 20%;
   height: 110px;
   float: left;
-  text-align: center;
 }
 
 #simulate-button {
-  width: 100px;
+  width: 130px;
   height: 50px;
   margin: 15px 0px;
 }
