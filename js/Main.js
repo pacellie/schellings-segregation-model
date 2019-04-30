@@ -95,7 +95,7 @@ function main() {
     showDiscontent = !showDiscontent;
 
     render(ctx, model, showDiscontent);
-  }
+  };
 
   simulate.onclick = (_) => {
     if (running) {
