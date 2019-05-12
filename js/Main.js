@@ -31,7 +31,7 @@ function main() {
     upperBoundB       : Number(circlesUpper.value) / 100,
   };
 
-  let model          = new Model(30, config);
+  let model          = new Model(40, config);
   let running        = false;
   let showDiscontent = false;
   let handle         = 0;
