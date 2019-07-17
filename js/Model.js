@@ -60,15 +60,19 @@ export class Model {
   }
 
   neighbors(point) {
-    return this.neighborhood(point).filter(n => this.element(n) !== 'O');
+    return this.neighborhood(point)
+               .filter(n => this.element(n) !== 'O');
   }
 
   likeNeighbors(point) {
-    return this.neighborhood(point).filter(n => this.element(point) === this.element(n));
+    return this.neighborhood(point)
+               .filter(n => this.element(point) === this.element(n));
   }
 
   content(point, elem) {
-    const neighbors = this.neighborhood(point).map(p => this.element(p)).filter(e => e !== 'O');
+    const neighbors = this.neighborhood(point)
+                          .map(p => this.element(p))
+                          .filter(e => e !== 'O');
 
     switch (elem) {
       case 'A':
@@ -89,7 +93,7 @@ export class Model {
   }
 
   simulate() {
-    const empty = this.points.filter(p => this.element(p) === 'O');
+    const empty      = this.points.filter(p => this.element(p) === 'O');
     const discontent = this.points.filter(p => !this.content(p, this.element(p)));
 
     if (discontent.length === 0 || empty.length === 0) {
@@ -97,18 +101,19 @@ export class Model {
     }
 
     const indexFrom = random(0, discontent.length - 1);
-    const from = discontent[indexFrom];
-    const elem = this.element(from);
+    const from      = discontent[indexFrom];
+    const elem      = this.element(from);
 
     let candidates = empty.filter(p => this.content(p, elem));
     if (candidates.length === 0) {
       candidates = empty;
     }
     const indexTo = random(0, candidates.length - 1);
-    const to = candidates[indexTo];
+    const to      = candidates[indexTo];
 
     this.matrix[from.x][from.y] = 'O';
-    this.matrix[to.x][to.y] = elem;
+    this.matrix[to.x]  [to.y]   = elem;
+
     this.iteration += 1;
 
     return true;

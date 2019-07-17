@@ -3,10 +3,10 @@ export function clear(ctx) {
 }
 
 export function render(ctx, model, showDiscontent) {
-  const spacing = 1;
-  const size = ctx.canvas.width;
+  const spacing  = 1;
+  const size     = ctx.canvas.width;
   const elements = model.size;
-  const s = (size - (elements + 1) * spacing) / elements;
+  const s        = (size - (elements + 1) * spacing) / elements;
 
   for (let i = 0; i < elements; i += 1) {
     for (let j = 0; j < elements; j += 1) {

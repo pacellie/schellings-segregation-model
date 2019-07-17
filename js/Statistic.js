@@ -32,7 +32,9 @@ export function segregation(model) {
 }
 
 function isIsolated(model, point) {
-  return model.neighborhood(point).filter(n => model.element(n) === opposite(model.element(point))).length === 0;
+  return model.neighborhood(point)
+              .filter(p => model.element(p) === opposite(model.element(point)))
+              .length === 0;
 }
 
 export function isolation(model) {
