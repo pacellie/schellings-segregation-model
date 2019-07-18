@@ -20,21 +20,33 @@ export class Model {
     this.matrix     = [];
     this.points     = [];
 
+    let a = Math.floor(size * size * config.percentageA)
+    let b = Math.ceil(size * size * config.percentageB)
+    let empties = [];
+
     for (let i = 0; i < size; i += 1) {
       const row = [];
       for (let j = 0; j < size; j += 1) {
-        const decide = Math.random();
-        if (decide <= config.percentageA) {
-          row.push('A');
-        } else if (decide <= config.percentageA + config.percentageB) {
-          row.push('B');
-        } else {
-          row.push('O');
-        }
-
         this.points.push({ x: i, y: j});
+        empties.push({ x: i, y: j });
+        row.push('O');
       }
       this.matrix.push(row);
+    }
+
+    while (0 < a || 0 < b) {
+      const index = random(0, empties.length - 1);
+      const position = empties[index];
+
+      if (0 < a) {
+        this.matrix[position.x][position.y] = 'A';
+        empties.splice(index, 1);
+        a -= 1;
+      } else {
+        this.matrix[position.x][position.y] = 'B';
+        empties.splice(index, 1);
+        b -= 1;
+      }
     }
   }
 
@@ -50,8 +62,11 @@ export class Model {
 
     for (let i = x - radius; i <= x + radius; i += 1) {
       for (let j = y - radius; j <= y + radius; j += 1) {
-        if (0 <= i && i < this.size && 0 <= j && j < this.size && !(x === i && y === j)) {
-          neighbors.push({ x: i, y: j });
+        if (x !== i || y !== j) {
+          neighbors.push({
+            x: (i + this.size) % this.size,
+            y: (j + this.size) % this.size
+          });
         }
       }
     }
@@ -105,16 +120,15 @@ export class Model {
     const elem      = this.element(from);
 
     let candidates = empty.filter(p => this.content(p, elem));
-    if (candidates.length === 0) {
-      candidates = empty;
+    if (candidates.length !== 0) {
+      const indexTo = random(0, candidates.length - 1);
+      const to      = candidates[indexTo];
+
+      this.matrix[from.x][from.y] = 'O';
+      this.matrix[to.x]  [to.y]   = elem;
+
+      this.iteration += 1;
     }
-    const indexTo = random(0, candidates.length - 1);
-    const to      = candidates[indexTo];
-
-    this.matrix[from.x][from.y] = 'O';
-    this.matrix[to.x]  [to.y]   = elem;
-
-    this.iteration += 1;
 
     return true;
   }
