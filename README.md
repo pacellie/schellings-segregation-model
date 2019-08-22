@@ -16,4 +16,4 @@ For further reading see:
 * Run ```npm install``` followed by ```npm run webpack```
 * Open the index.html file in your browser. (tested only with chrome)
 
-This is only a quick demo and not trimmed particularly for preformence neither does it check for valid inputs.
+This is only a quick demo and not trimmed particularly for performance neither does it check for valid inputs.
